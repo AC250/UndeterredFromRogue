@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>Websocket here</h1>
+<button onclick="fetchData()">Press this to get answer!</button>
+<br><br>
+<p id="paragraph"></p>
+</body>
+<script>
+  let ws = new WebSocket("ws://localhost:4567/websocket")
+  ws.onopen = function (event) {
+    console.log("Opened: " + event)
+  }
+  let fetchData = async function () {
+    ws.send("Pls find the answer")
+  }
+  ws.onclose = function (event) {
+    console.log("Closed: " + event)
+  }
+  ws.onmessage = function (event) {
+    document.getElementById("paragraph").innerText = event.data
+  }
+</script>
+</html>
